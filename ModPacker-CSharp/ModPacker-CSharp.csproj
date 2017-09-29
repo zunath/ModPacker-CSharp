@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0D76CED1-F8B5-4D85-8090-6C075311E4B9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ModPacker_CSharp</RootNamespace>
+    <AssemblyName>ModPacker-CSharp</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Enums\AnimationStateType.cs" />
+    <Compile Include="Enums\AreaFlagType.cs" />
+    <Compile Include="Enums\GenderType.cs" />
+    <Compile Include="Enums\PVPSettingType.cs" />
+    <Compile Include="Enums\SpellFlagType.cs" />
+    <Compile Include="Enums\TimeOfDayType.cs" />
+    <Compile Include="Enums\TransitionLinkType.cs" />
+    <Compile Include="Enums\TriggerType.cs" />
+    <Compile Include="Enums\WindPowerType.cs" />
+    <Compile Include="GFFParser\Gff.cs" />
+    <Compile Include="GFFParser\GffField.cs" />
+    <Compile Include="GFFParser\GffFieldType.cs" />
+    <Compile Include="GFFParser\GffRawField.cs" />
+    <Compile Include="GFFParser\GffRawStruct.cs" />
+    <Compile Include="GFFParser\GffReader.cs" />
+    <Compile Include="GFFParser\GffResource.cs" />
+    <Compile Include="GFFParser\GffResourceType.cs" />
+    <Compile Include="GFFParser\GffStruct.cs" />
+    <Compile Include="GFFParser\ModuleReader.cs" />
+    <Compile Include="NWObjects\NWArea.cs" />
+    <Compile Include="NWObjects\NWClass.cs" />
+    <Compile Include="NWObjects\NWCreature.cs" />
+    <Compile Include="NWObjects\NWDoor.cs" />
+    <Compile Include="NWObjects\NWEncounter.cs" />
+    <Compile Include="NWObjects\NWEncounterCreature.cs" />
+    <Compile Include="NWObjects\NWEncounterSpawnPoint.cs" />
+    <Compile Include="NWObjects\NWItem.cs" />
+    <Compile Include="NWObjects\NWItemProperty.cs" />
+    <Compile Include="NWObjects\NWLocalizedString.cs" />
+    <Compile Include="NWObjects\NWModule.cs" />
+    <Compile Include="NWObjects\NWPlaceable.cs" />
+    <Compile Include="NWObjects\NWPoint.cs" />
+    <Compile Include="NWObjects\NWSituatedObject.cs" />
+    <Compile Include="NWObjects\NWSound.cs" />
+    <Compile Include="NWObjects\NWSpecialAbility.cs" />
+    <Compile Include="NWObjects\NWStore.cs" />
+    <Compile Include="NWObjects\NWTrigger.cs" />
+    <Compile Include="NWObjects\NWWaypoint.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
