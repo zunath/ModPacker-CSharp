@@ -110,5 +110,90 @@ namespace ModPacker_CSharp.NWObjects
             
             return encounter;
         }
+
+        public GffStruct ToGff()
+        {
+            GffStruct gff = new GffStruct();
+            gff.Add("Active", new GffField { ByteValue = Convert.ToByte(IsActive) });
+            gff.Add("Difficulty", new GffField { IntValue = Difficulty });
+            gff.Add("DifficultyIndex", new GffField { IntValue = DifficultyIndex });
+            gff.Add("Faction", new GffField { DWordValue = FactionID });
+            
+            GffField tempField = new GffField();
+            tempField.LocalizedStrings.Add(Name);
+            gff.Add("LocalizedName", tempField);
+            
+            gff.Add("MaxCreatures", new GffField { IntValue = MaximumCreatures });
+            gff.Add("OnEntered", new GffField { ResrefValue = OnEntered });
+            gff.Add("OnExhausted", new GffField { ResrefValue = OnExhausted });
+            gff.Add("OnExit", new GffField { ResrefValue = OnExit });
+            gff.Add("OnHeartbeat", new GffField { ResrefValue = OnHeartbeat});
+            gff.Add("OnUserDefined", new GffField { ResrefValue = OnUserDefined });
+            gff.Add("PlayerOnly", new GffField { ByteValue = Convert.ToByte(PlayerOnly) });
+            gff.Add("RecCreatures", new GffField { IntValue = RecommendedNumberOfCreatures });
+            gff.Add("Reset", new GffField { ByteValue = Convert.ToByte(Respawns) });
+            gff.Add("ResetTime", new GffField { IntValue = RespawnTime });
+            gff.Add("Respawns", new GffField { IntValue = NumberOfRespawns });
+            gff.Add("SpawnOption", new GffField { IntValue = Convert.ToInt32(IsContinuousSpawn) });
+            gff.Add("Tag", new GffField { StringValue = Tag });
+            gff.Add("TemplateResRef", new GffField { ResrefValue = TemplateResref });
+
+            gff.Add("XPosition", new GffField { FloatValue = XPosition });
+            gff.Add("YPosition", new GffField { FloatValue = YPosition });
+            gff.Add("ZPosition", new GffField { FloatValue = ZPosition });
+
+            GffField creatureList = new GffField();
+
+            foreach (var creature in CreatureList)
+            {
+                GffStruct gffCreature = new GffStruct
+                {
+                    {"ResRef", new GffField{ResrefValue = creature.Resref}},
+                    {"Appearance", new GffField{IntValue = creature.AppearanceID}},
+                    {"CR", new GffField{FloatValue = creature.ChallengeRating}},
+                    {"SingleSpawn", new GffField{ByteValue = Convert.ToByte(creature.IsSingleSpawn)}},
+                };
+
+                creatureList.ListValue.Add(gffCreature);
+            }
+
+            gff.Add("CreatureList", creatureList);
+
+            GffField geometry = new GffField();
+            foreach (NWPoint point in Geometry)
+            {
+                GffStruct @struct = new GffStruct
+                {
+                    {"X", new GffField {FloatValue = point.X}},
+                    {"Y", new GffField {FloatValue = point.Y}},
+                    {"Z", new GffField {FloatValue = point.Z}}
+                };
+
+                geometry.ListValue.Add(@struct);
+            }
+
+            gff.Add("Geometry", geometry);
+
+
+            GffField spawnPointList = new GffField();
+
+            foreach (var spawnPoint in SpawnPoints)
+            {
+                GffStruct gffSpawnPoint = new GffStruct
+                {
+                    {"X", new GffField{FloatValue = spawnPoint.PositionX}},
+                    {"Y", new GffField{FloatValue = spawnPoint.PositionY}},
+                    {"Z", new GffField{FloatValue = spawnPoint.PositionZ}},
+                    {"Orientation", new GffField{FloatValue = spawnPoint.Orientation}},
+                };
+
+                spawnPointList.ListValue.Add(gffSpawnPoint);
+            }
+
+            gff.Add("SpawnPointList", spawnPointList);
+
+
+            return gff;
+        }
     }
 }

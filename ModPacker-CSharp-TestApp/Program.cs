@@ -9,15 +9,19 @@ namespace ModPacker_CSharp_TestApp
         static void Main(string[] args)
         {
             const string fileInPath = @"./Module/Cyberpunk Zombie Survival.mod";
+            const string fileOutPath = @"./Module/OutputMod.mod";
 
             ModuleReader reader = new ModuleReader();
+            ModuleWriter writer = new ModuleWriter();
 
+            NWModule module;
             using (var stream = File.OpenRead(fileInPath))
             {
-                NWModule module = reader.LoadModule(stream);
-
-
+                module = reader.LoadModule(stream);
             }
+
+
+
                 
         }
     }

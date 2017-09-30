@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ModPacker_CSharp.Enums;
 using ModPacker_CSharp.GFFParser;
 
@@ -230,9 +231,144 @@ namespace ModPacker_CSharp.NWObjects
             return area;
         }
 
-        public Gff ToGff()
+        public Tuple<Gff, Gff, Gff> ToGff()
         {
-            throw new System.NotImplementedException();
+            Gff areSource = new Gff();
+            Gff gitSource = new Gff();
+            Gff gicSource = new Gff();
+
+            #region ARE Fields
+            areSource.RootStruct = new GffStruct();
+            areSource.RootStruct.Add("ChanceLightning", new GffField { IntValue = ChanceOfLightning });
+            areSource.RootStruct.Add("ChanceRain", new GffField { IntValue = ChanceOfRain });
+            areSource.RootStruct.Add("ChanceSnow", new GffField { IntValue = ChanceOfSnow });
+            areSource.RootStruct.Add("Comments", new GffField { StringValue = Comments});
+            areSource.RootStruct.Add("Creator_ID", new GffField { IntValue = CreatorID });
+            areSource.RootStruct.Add("DayNightCycle", new GffField { ByteValue = Convert.ToByte(HasDayNightCycle)});
+
+            uint type = 0x0000;
+            if (IsInterior) type += 0x0001;
+            if (IsUnderground) type += 0x0002;
+            if (IsNatural) type += 0x0004;
+
+            areSource.RootStruct.Add("Flags", new GffField { DWordValue = type });
+            areSource.RootStruct.Add("Creator_ID", new GffField { IntValue = CreatorID });
+            areSource.RootStruct.Add("ID", new GffField { IntValue = AreaID });
+            areSource.RootStruct.Add("IsNight", new GffField { ByteValue = Convert.ToByte(IsNight) });
+            areSource.RootStruct.Add("LightingScheme", new GffField { ByteValue = LightingScheme });
+            areSource.RootStruct.Add("LoadScreenID", new GffField { WordValue = LoadScreenID });
+            areSource.RootStruct.Add("ModListenCheck", new GffField { IntValue = ModListenCheck });
+            areSource.RootStruct.Add("ModSpotCheck", new GffField { IntValue = ModSpotCheck });
+
+            areSource.RootStruct.Add("MoonAmbientColor", new GffField { DWordValue = MoonAmbientColor });
+            areSource.RootStruct.Add("MoonDiffuseColor", new GffField { DWordValue = MoonDiffuseColor });
+            areSource.RootStruct.Add("MoonFogAmount", new GffField { ByteValue = MoonFogAmount });
+            areSource.RootStruct.Add("MoonFogColor", new GffField { DWordValue = MoonFogColor });
+            areSource.RootStruct.Add("MoonShadows", new GffField { ByteValue = Convert.ToByte(HasMoonShadows) });
+            
+            GffField tempField = new GffField();
+            tempField.LocalizedStrings.Add(Name);
+            areSource.RootStruct.Add("Name", tempField);
+
+            areSource.RootStruct.Add("NoRest", new GffField { ByteValue = Convert.ToByte(!IsRestingAllowed) });
+            areSource.RootStruct.Add("OnEnter", new GffField { ResrefValue = OnEnter });
+            areSource.RootStruct.Add("OnExit", new GffField { ResrefValue = OnExit });
+            areSource.RootStruct.Add("OnHeartbeat", new GffField { ResrefValue = OnHeartbeat });
+            areSource.RootStruct.Add("OnUserDefined", new GffField { ResrefValue = OnUserDefined });
+            areSource.RootStruct.Add("PlayerVsPlayer", new GffField { ByteValue = (byte)PVPSetting });
+            areSource.RootStruct.Add("ResRef", new GffField { ResrefValue = Resref });
+            areSource.RootStruct.Add("SkyBox", new GffField { ByteValue = SkyBoxID });
+            areSource.RootStruct.Add("ShadowOpacity", new GffField { ByteValue = ShadowOpacity });
+            areSource.RootStruct.Add("SunAmbientColor", new GffField { DWordValue = SunAmbientColor });
+            areSource.RootStruct.Add("SunDiffuseColor", new GffField { DWordValue = SunDiffuseColor });
+            areSource.RootStruct.Add("SunFogAmount", new GffField { ByteValue = SunFogAmount });
+            areSource.RootStruct.Add("SunFogColor", new GffField { DWordValue = SunFogColor });
+            areSource.RootStruct.Add("SunShadows", new GffField { ByteValue = Convert.ToByte(HasSunShadows) });
+            areSource.RootStruct.Add("Tag", new GffField { StringValue = Tag });
+            // TODO: TileList
+            areSource.RootStruct.Add("Tileset", new GffField { ResrefValue = TileSet });
+            areSource.RootStruct.Add("Version", new GffField { DWordValue = Version });
+            areSource.RootStruct.Add("Width", new GffField { IntValue = Width });
+            areSource.RootStruct.Add("WindPower", new GffField { IntValue = (int)WindPower });
+
+
+            #endregion
+
+            #region GIT Fields
+            gitSource.RootStruct = new GffStruct();
+            GffStruct areaProperties = new GffStruct();
+            areaProperties.Add("AmbientSndDay", new GffField { IntValue = AmbientSoundDay });
+            areaProperties.Add("AmbientSndNight", new GffField { IntValue = AmbientSoundNight });
+            areaProperties.Add("AmbientSndDayVol", new GffField { IntValue = AmbientSoundDayVolume });
+            areaProperties.Add("AmbientSndNitVol", new GffField { IntValue = AmbientSoundNightVolume });
+            areaProperties.Add("EnvAudio", new GffField { IntValue = EnvironmentAudio });
+            areaProperties.Add("MusicBattle", new GffField { IntValue = MusicBattle });
+            areaProperties.Add("MusicDay", new GffField { IntValue = MusicDay });
+            areaProperties.Add("MusicNight", new GffField { IntValue = MusicNight });
+            areaProperties.Add("MusicDelay", new GffField { IntValue = MusicDelay });
+
+            gitSource.RootStruct.Add("AreaProperties", new GffField{StructValue = areaProperties});
+
+            gitSource.RootStruct.Add("Creature List", new GffField
+            {
+                ListValue = Creatures.Select(creature => creature.ToGff()).ToList()
+            });
+
+            gitSource.RootStruct.Add("Door List", new GffField
+            {
+                ListValue = Doors.Select(door => door.ToGff()).ToList()
+            });
+
+            gitSource.RootStruct.Add("Encounter List", new GffField
+            {
+                ListValue = Encounters.Select(encounter => encounter.ToGff()).ToList()
+            });
+
+            gitSource.RootStruct.Add("List", new GffField
+            {
+                ListValue = Items.Select(item => item.ToGff()).ToList()
+            });
+
+            gitSource.RootStruct.Add("Placeable List", new GffField
+            {
+                ListValue = Placeables.Select(placeable => placeable.ToGff()).ToList()
+            });
+
+            gitSource.RootStruct.Add("SoundList", new GffField
+            {
+                ListValue = Sounds.Select(sound => sound.ToGff()).ToList()
+            });
+
+            gitSource.RootStruct.Add("StoreList", new GffField
+            {
+                ListValue = Stores.Select(store => store.ToGff()).ToList()
+            });
+
+            gitSource.RootStruct.Add("TriggerList", new GffField
+            {
+                ListValue = Triggers.Select(trigger => trigger.ToGff()).ToList()
+            });
+
+            gitSource.RootStruct.Add("WaypointList", new GffField
+            {
+                ListValue = Waypoints.Select(waypoint => waypoint.ToGff()).ToList()
+            });
+            
+            #endregion
+
+            #region GIC Fields
+            gicSource.RootStruct = new GffStruct();
+
+            gicSource.RootStruct.Add("Creature List", new GffField
+            {
+                ListValue = Creatures.Select(creature => creature.ToGff()).ToList()
+            });
+
+            // TODO: Write + test GIC files
+
+            #endregion
+
+            return new Tuple<Gff, Gff, Gff>(areSource, gitSource, gicSource);
         }
     }
 }

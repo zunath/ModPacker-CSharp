@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using ModPacker_CSharp.Enums;
 using ModPacker_CSharp.GFFParser;
 
@@ -97,6 +98,64 @@ namespace ModPacker_CSharp.NWObjects
             }
 
             return trigger;
+        }
+
+        public GffStruct ToGff()
+        {
+            GffStruct gff = new GffStruct();
+            gff.Add("AutoRemoveKey", new GffField { ByteValue = Convert.ToByte(AutoRemoveKey) });
+            gff.Add("Cursor", new GffField { ByteValue = Cursor });
+            gff.Add("DisarmDC", new GffField { ByteValue = DisarmDC });
+            gff.Add("Faction", new GffField { DWordValue = FactionID});
+            gff.Add("HighlightHeight", new GffField { FloatValue = HighlightHeight});
+            gff.Add("KeyName", new GffField { StringValue = KeyName });
+            gff.Add("LinkedTo", new GffField { StringValue = LinkedTo});
+            gff.Add("LinkedToFlags", new GffField { ByteValue = (byte)LinkedToType});
+            gff.Add("LoadScreenID", new GffField { WordValue = LoadScreenID });
+
+            GffField tempField = new GffField();
+            tempField.LocalizedStrings.Add(LocalizedName);
+            gff.Add("LocalizedName", tempField);
+            
+            gff.Add("OnClick", new GffField { ResrefValue = OnClick });
+            gff.Add("OnDisarm", new GffField { ResrefValue = OnDisarm});
+            gff.Add("OnTrapTriggered", new GffField { ResrefValue = OnTrapTriggered});
+            gff.Add("PortraitId", new GffField { WordValue = PortraitID });
+            gff.Add("ScriptHeartbeat", new GffField { ResrefValue = OnHeartbeat});
+            gff.Add("ScriptOnEnter", new GffField { ResrefValue = OnEnter });
+            gff.Add("ScriptOnExit", new GffField { ResrefValue = OnExit });
+            gff.Add("ScriptUserDefine", new GffField { ResrefValue = OnUserDefined});
+            gff.Add("Tag", new GffField { StringValue = Tag });
+            gff.Add("TemplateResRef", new GffField { ResrefValue = TemplateResref});
+            gff.Add("TrapDetectable", new GffField { ByteValue = Convert.ToByte(TrapIsDetectable)});
+            gff.Add("TrapDetectDC", new GffField { ByteValue = TrapDetectDC});
+            gff.Add("TrapDisarmable", new GffField { ByteValue = TrapDisarmable});
+            gff.Add("TrapFlag", new GffField { ByteValue = Convert.ToByte(IsTrap)});
+            gff.Add("TrapOneShot", new GffField { ByteValue = Convert.ToByte(IsTrapOneShot)});
+            gff.Add("TrapType", new GffField { ByteValue = TrapTypeID});
+            gff.Add("Type", new GffField { IntValue = (int)TriggerType});
+            gff.Add("PaletteID", new GffField { ByteValue = PaletteID});
+            gff.Add("TemplateResRef", new GffField { ResrefValue = TemplateResref});
+
+            if (Geometry.Count > 0)
+            {
+                GffField geometry = new GffField();
+                foreach (NWPoint point in Geometry)
+                {
+                    GffStruct @struct = new GffStruct
+                    {
+                        {"PointX", new GffField {FloatValue = point.X}},
+                        {"PointY", new GffField {FloatValue = point.Y}},
+                        {"PointZ", new GffField {FloatValue = point.Z}}
+                    };
+
+                    geometry.ListValue.Add(@struct);
+                }
+
+                gff.Add("Geometry", geometry);
+            }
+
+            return gff;
         }
     }
 }

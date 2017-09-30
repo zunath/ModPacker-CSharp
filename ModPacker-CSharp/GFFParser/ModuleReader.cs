@@ -9,9 +9,9 @@ namespace ModPacker_CSharp.GFFParser
     public class ModuleReader
     {
         private BinaryReader _reader;
-        private int _languageCount;
-        private int _entryCount;
-        private int _offsetToResourceList;
+        private uint _languageCount;
+        private uint _entryCount;
+        private uint _offsetToResourceList;
         private readonly List<NWLocalizedString> _localizedModuleDescriptions;
         private readonly List<GffResource> _resources;
         private NWModule _module;
@@ -39,16 +39,16 @@ namespace ModPacker_CSharp.GFFParser
         {
             _reader.ReadBytes(4); // FileType
             _reader.ReadBytes(4); // Version
-            _languageCount = _reader.ReadInt32();
-            _reader.ReadInt32(); // LocalizedStringSize
-            _entryCount = _reader.ReadInt32();
-            _reader.ReadInt32(); // OffsetToLocalizedString
-            _reader.ReadInt32(); // OffsetToKeyList
-            _offsetToResourceList = _reader.ReadInt32();
-            _reader.ReadInt32(); // BuildYear
-            _reader.ReadInt32(); // BuildDay
-            _reader.ReadInt32(); // DescriptionStrRef
-            _reader.ReadBytes(116); // Bioware Reserved
+            _languageCount = _reader.ReadUInt32();
+            var localizedStringSize = _reader.ReadUInt32(); // LocalizedStringSize
+            _entryCount = _reader.ReadUInt32();
+            var offsetToLocalizedString = _reader.ReadUInt32(); // OffsetToLocalizedString
+            var offsetToKeyList = _reader.ReadUInt32(); // OffsetToKeyList
+            _offsetToResourceList = _reader.ReadUInt32();
+            var buildYear = _reader.ReadUInt32(); // BuildYear
+            var buildDay = _reader.ReadUInt32(); // BuildDay
+            var descriptionStrRef = _reader.ReadUInt32(); // DescriptionStrRef
+            var biowareReserved = _reader.ReadBytes(116); // Bioware Reserved
         }
 
         private void ReadStrings()

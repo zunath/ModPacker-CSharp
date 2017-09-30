@@ -9,10 +9,7 @@ namespace ModPacker_CSharp.NWObjects
         public bool IsBlackMarket { get; set; }
         public int BlackMarketMarkDown { get; set; }
         public int IdentifyPrice { get; set; }
-        public bool CanIdentifyItems
-        {
-            get { return IdentifyPrice >= 0; }
-        }
+        public bool CanIdentifyItems => IdentifyPrice >= 0;
         public NWLocalizedString LocalizedName { get; set; }
         public int MarkDown { get; set; }
         public int MarkUp { get; set; }
@@ -75,6 +72,53 @@ namespace ModPacker_CSharp.NWObjects
             }
 
             return store;
+        }
+
+        public GffStruct ToGff()
+        {
+            GffStruct gff = new GffStruct();
+            gff.Add("BlackMarket", new GffField { ByteValue = Convert.ToByte(IsBlackMarket) });
+            gff.Add("BM_MarkDown", new GffField { IntValue = BlackMarketMarkDown });
+            gff.Add("IdentifyPrice", new GffField { IntValue = IdentifyPrice });
+
+            GffField tempField = new GffField();
+            tempField.LocalizedStrings.Add(LocalizedName);
+            gff.Add("LocName", tempField);
+            
+            gff.Add("MarkDown", new GffField { IntValue = MarkDown });
+            gff.Add("MarkUp", new GffField {IntValue = MarkUp });
+            gff.Add("MaxBuyPrice", new GffField { IntValue = MaxBuyPrice });
+            gff.Add("OnOpenStore", new GffField { ResrefValue = OnOpenStore });
+            gff.Add("OnStoreClosed", new GffField { ResrefValue = OnCloseStore });
+            gff.Add("ResRef", new GffField { ResrefValue = Resref });
+            gff.Add("StoreGold", new GffField { IntValue = StoreGold });
+            gff.Add("Tag", new GffField { StringValue = Tag });
+
+            // TODO: Inventory ItemList structure
+
+            GffField willNotBuy = new GffField();
+            foreach (var item in WillNotBuyList)
+            {
+                GffStruct gffItem = new GffStruct
+                {
+                    {"BaseItem", new GffField {IntValue = item}}
+                };
+                willNotBuy.ListValue.Add(gffItem);
+            }
+            gff.Add("WillNotBuy", willNotBuy);
+
+            GffField willOnlyBuy = new GffField();
+            foreach (var item in WillOnlyBuyList)
+            {
+                GffStruct gffItem = new GffStruct
+                {
+                    {"BaseItem", new GffField {IntValue = item}}
+                };
+                willOnlyBuy.ListValue.Add(gffItem);
+            }
+            gff.Add("WillOnlyBuy", willOnlyBuy);
+
+            return gff;
         }
     }
 }

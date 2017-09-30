@@ -59,6 +59,7 @@
     <Compile Include="GFFParser\GffResourceType.cs" />
     <Compile Include="GFFParser\GffStruct.cs" />
     <Compile Include="GFFParser\ModuleReader.cs" />
+    <Compile Include="GFFParser\ModuleWriter.cs" />
     <Compile Include="NWObjects\NWArea.cs" />
     <Compile Include="NWObjects\NWClass.cs" />
     <Compile Include="NWObjects\NWCreature.cs" />

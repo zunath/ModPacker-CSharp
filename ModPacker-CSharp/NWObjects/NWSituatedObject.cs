@@ -109,5 +109,69 @@ namespace ModPacker_CSharp.NWObjects
             return this;
         }
 
+        protected GffStruct SharedFieldsToGff()
+        {
+            GffStruct gff = new GffStruct();
+
+            gff.Add("AnimationState", new GffField { ByteValue = (byte)AnimationState });
+            gff.Add("Appearance", new GffField { DWordValue = AppearanceID });
+            gff.Add("AutoRemoveKey", new GffField { ByteValue = Convert.ToByte(AutoRemoveKey) });
+            gff.Add("CloseLockDC", new GffField { ByteValue = CloseLockDC });
+            gff.Add("Conversation", new GffField { ResrefValue = Conversation });
+            gff.Add("CurrentHP", new GffField { ShortValue = CurrentHitPoints });
+
+            GffField tempField = new GffField();
+            tempField.LocalizedStrings.Add(Description);
+            gff.Add("Description", tempField);
+
+            gff.Add("DisarmDC", new GffField { ByteValue = DisarmDC });
+            gff.Add("Faction", new GffField { DWordValue = FactionID });
+            gff.Add("Fort", new GffField { ByteValue = FortitudeSave });
+            gff.Add("Hardness", new GffField { ByteValue = Hardness });
+            gff.Add("HP", new GffField { ShortValue = MaxHitPoints });
+            gff.Add("Interruptable", new GffField { ByteValue = Convert.ToByte(IsConversationInterruptable) });
+            gff.Add("Lockable", new GffField { ByteValue = Convert.ToByte(IsLockable) });
+            gff.Add("Locked", new GffField { ByteValue = Convert.ToByte(IsLocked) });
+
+            tempField = new GffField();
+            tempField.LocalizedStrings.Add(Name);
+            gff.Add("LocName", tempField);
+
+            gff.Add("OnClosed", new GffField { ResrefValue = OnClosed });
+            gff.Add("OnDamaged", new GffField { ResrefValue = OnDamaged });
+            gff.Add("OnDeath", new GffField { ResrefValue = OnDeath });
+            gff.Add("OnDisarm", new GffField { ResrefValue = OnDisarm });
+            gff.Add("OnHeartbeat", new GffField { ResrefValue = OnHeartbeat });
+            gff.Add("OnLock", new GffField { ResrefValue = OnLock });
+            gff.Add("OnMeleeAttacked", new GffField { ResrefValue = OnMeleeAttacked });
+            gff.Add("OnOpen", new GffField { ResrefValue = OnOpen });
+            gff.Add("OnSpellCastAt", new GffField { ResrefValue = OnSpellCastAt });
+            gff.Add("OnTrapTriggered", new GffField { ResrefValue = OnTrapTriggered });
+            gff.Add("OnUnlock", new GffField { ResrefValue = OnUnlock });
+            gff.Add("OnUserDefined", new GffField { ResrefValue = OnUserDefined });
+            gff.Add("OpenLockDC", new GffField { ByteValue = OpenLockDC });
+            gff.Add("Plot", new GffField { ByteValue = Convert.ToByte(IsPlot) });
+            gff.Add("PortraitId", new GffField { WordValue = PortraitID });
+            gff.Add("Ref", new GffField { ByteValue = ReflexSave });
+            gff.Add("Tag", new GffField { StringValue = Tag });
+            gff.Add("TemplateResRef", new GffField { ResrefValue = TemplateResref });
+            gff.Add("TrapDetectable", new GffField { ByteValue = Convert.ToByte(IsTrapDetectable) });
+            gff.Add("TrapDetectDC", new GffField { ByteValue = TrapDetectDC });
+            gff.Add("TrapDisarmable", new GffField { ByteValue = Convert.ToByte(IsTrapDisarmable) });
+            gff.Add("TrapFlag", new GffField { ByteValue = Convert.ToByte(IsTrapped) });
+            gff.Add("TrapOneShot", new GffField { ByteValue = Convert.ToByte(IsTrapOneShot) });
+            gff.Add("TrapType", new GffField { ByteValue = TrapTypeID });
+            gff.Add("Will", new GffField { ByteValue = WillSave });
+
+            gff.Add("Comment", new GffField { StringValue = Comment });
+            gff.Add("PaletteID", new GffField { ByteValue = PaletteID });
+            gff.Add("Bearing", new GffField { FloatValue = Bearing });
+            gff.Add("X", new GffField { FloatValue = PositionX });
+            gff.Add("Y", new GffField { FloatValue = PositionY });
+            gff.Add("Z", new GffField { FloatValue = PositionZ });
+
+            return gff;
+        }
+
     }
 }

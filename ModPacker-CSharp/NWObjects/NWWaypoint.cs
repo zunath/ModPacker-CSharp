@@ -48,9 +48,38 @@ namespace ModPacker_CSharp.NWObjects
             return waypoint;
         }
 
-        public Gff ToGff()
+        public GffStruct ToGff()
         {
-            throw new System.NotImplementedException();
+            GffStruct gff = new GffStruct();
+            gff.Add("Appearance", new GffField { ByteValue = AppearanceID });
+
+            GffField tempField = new GffField();
+            tempField.LocalizedStrings.Add(Description);
+            gff.Add("Description", tempField);
+
+            gff.Add("HasMapNote", new GffField { ByteValue = Convert.ToByte(HasMapNote) });
+            gff.Add("LinkedTo", new GffField { StringValue = LinkedTo });
+
+            tempField = new GffField();
+            tempField.LocalizedStrings.Add(LocalizedName);
+            gff.Add("LocalizedName", tempField);
+
+            tempField = new GffField();
+            tempField.LocalizedStrings.Add(MapNote);
+            gff.Add("MapNote", tempField);
+            
+            gff.Add("MapNoteEnabled", new GffField { ByteValue = Convert.ToByte(IsMapNoteEnabled) });
+            gff.Add("Tag", new GffField { StringValue = Tag });
+            gff.Add("Comment", new GffField { StringValue = Comment });
+            gff.Add("PaletteID", new GffField { ByteValue = PaletteID });
+            gff.Add("TemplateResRef", new GffField { ResrefValue = TemplateResRef });
+            gff.Add("XOrientation", new GffField { FloatValue = XOrientation });
+            gff.Add("YOrientation", new GffField { FloatValue = YOrientation });
+            gff.Add("XPosition", new GffField { FloatValue = XPosition });
+            gff.Add("YPosition", new GffField { FloatValue = YPosition });
+            gff.Add("ZPosition", new GffField { FloatValue = ZPosition });
+
+            return gff;
         }
     }
 }

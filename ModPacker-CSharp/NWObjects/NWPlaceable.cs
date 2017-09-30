@@ -28,5 +28,20 @@ namespace ModPacker_CSharp.NWObjects
 
             return placeable;
         }
+
+        public GffStruct ToGff()
+        {
+            GffStruct gff = SharedFieldsToGff();
+            gff.Add("BodyBag", new GffField { ByteValue = BodyBagID });
+            gff.Add("HasInventory", new GffField { ByteValue = Convert.ToByte(HasInventory)});
+            gff.Add("OnInvDisturbed", new GffField { ResrefValue = OnInventoryDisturbed });
+            gff.Add("OnUsed", new GffField { ResrefValue = OnUsed });
+            gff.Add("Static", new GffField { ByteValue = Convert.ToByte(IsStatic) });
+            gff.Add("Useable", new GffField { ByteValue = Convert.ToByte(IsUseable) });
+
+            // TODO: ItemList
+
+            return gff;
+        }
     }
 }
