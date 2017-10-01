@@ -25,7 +25,6 @@ namespace ModPacker_CSharp.NWObjects
 
         public string Comment { get; set; }
         public byte PaletteID { get; set; }
-        public string TemplateResref { get; set; }
         public float XOrientation { get; set; }
         public float YOrientation { get; set; }
         public float XPosition { get; set; }

@@ -69,11 +69,18 @@ namespace ModPacker_CSharp.NWObjects
         public List<NWTrigger> PaletteTriggers { get; set; } 
         public List<NWWaypoint> PaletteWaypoints { get; set; } 
 
+        // Stuff that isn't documented properly or shouldn't be modified.
+        // Whatever is read will be written.
+        public List<Gff> ITPs { get; set; }
+        public List<Gff> DLGs { get; set; }
+        public List<Gff> FACs { get; set; }
+
         public NWModule()
         {
             Areas = new List<NWArea>();
             CachedScripts = new List<string>();
             HakPaks = new List<string>();
+            ITPs = new List<Gff>();
 
             PaletteItems = new List<NWItem>();
             PaletteCreatures = new List<NWCreature>();
@@ -206,6 +213,11 @@ namespace ModPacker_CSharp.NWObjects
 
             #endregion
 
+            // TODO: Figure out what to do with ITP, FAC and DLG files. Right now, whatever is read in will be written out later.
+            module.ITPs = source.Where(x => x.ResourceType == GffResourceType.ITP).ToList();
+            module.DLGs = source.Where(x => x.ResourceType == GffResourceType.DLG).ToList();
+            module.FACs = source.Where(x => x.ResourceType == GffResourceType.FAC).ToList();
+
             return module;
         }
 
@@ -314,6 +326,7 @@ namespace ModPacker_CSharp.NWObjects
                 gff.Add(tuple.Item3);
             }
             
+            // Build palettes
             gff.AddRange(PaletteCreatures.Select(creature => new Gff
             {
                 ResourceType = GffResourceType.UTC,
@@ -359,7 +372,7 @@ namespace ModPacker_CSharp.NWObjects
             gff.AddRange(PaletteStores.Select(store => new Gff
             {
                 ResourceType = GffResourceType.UTM,
-                Resref = store.TemplateResref,
+                Resref = store.Resref,
                 RootStruct = store.ToGff()
             }));
 
@@ -377,6 +390,10 @@ namespace ModPacker_CSharp.NWObjects
                 RootStruct = waypoint.ToGff()
             }));
             
+            gff.AddRange(ITPs);
+            gff.AddRange(DLGs);
+            gff.AddRange(FACs);
+
             return gff;
         }
     }

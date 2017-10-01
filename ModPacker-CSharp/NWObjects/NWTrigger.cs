@@ -135,7 +135,6 @@ namespace ModPacker_CSharp.NWObjects
             gff.Add("TrapType", new GffField(GffFieldType.Byte) { ByteValue = TrapTypeID});
             gff.Add("Type", new GffField(GffFieldType.Int) { IntValue = (int)TriggerType});
             gff.Add("PaletteID", new GffField(GffFieldType.Byte) { ByteValue = PaletteID});
-            gff.Add("TemplateResRef", new GffField(GffFieldType.ResRef) { ResrefValue = TemplateResref});
 
             if (Geometry.Count > 0)
             {

@@ -264,7 +264,6 @@ namespace ModPacker_CSharp.NWObjects
             if (IsNatural) type += 0x0004;
 
             areSource.RootStruct.Add("Flags", new GffField(GffFieldType.DWord) { DWordValue = type });
-            areSource.RootStruct.Add("Creator_ID", new GffField(GffFieldType.Int) { IntValue = CreatorID });
             areSource.RootStruct.Add("ID", new GffField(GffFieldType.Int) { IntValue = AreaID });
             areSource.RootStruct.Add("IsNight", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(IsNight) });
             areSource.RootStruct.Add("LightingScheme", new GffField(GffFieldType.Byte) { ByteValue = LightingScheme });

@@ -148,6 +148,7 @@ namespace ModPacker_CSharp.NWObjects
             creature.WalkRate = source["WalkRate"].IntValue;
             creature.WillBonus = source["willbonus"].ShortValue;
             creature.WingsID = source["Wings_New"].ByteValue;
+            creature.TemplateResref = source["TemplateResRef"].ResrefValue;
 
             foreach (GffStruct @struct in source["ClassList"].ListValue)
             {

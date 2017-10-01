@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -100,13 +101,15 @@ namespace ModPacker_CSharp.GFFParser
                 GffResourceType.FAC, GffResourceType.ITP, GffResourceType.PTM,
                 GffResourceType.PTT, GffResourceType.BIC };
 
+            // TODO: Figure out how NCS/NSS files are stored in the module. No documentation listed in Bioware docs.
+
             List<Gff> gffRecords = new List<Gff>();
 
             foreach(var resource in _resources)
             {
                 resource.Data = _reader.ReadBytes(resource.ResourceSize);
 
-                if(validTypes.Contains(resource.ResourceType))
+                if (validTypes.Contains(resource.ResourceType))
                 {
                     GffReader gffReader = new GffReader();
 
@@ -114,6 +117,12 @@ namespace ModPacker_CSharp.GFFParser
                 }
 
             }
+
+            // TODO: DEBUGGING
+
+            TempStaticStorage.ReaderGffList = gffRecords;
+            
+            // TODO: END DEBUGGING
 
             _module = NWModule.FromGff(gffRecords);
 

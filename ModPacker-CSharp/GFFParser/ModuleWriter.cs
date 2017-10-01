@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using ModPacker_CSharp.NWObjects;
 
 namespace ModPacker_CSharp.GFFParser
@@ -7,11 +8,19 @@ namespace ModPacker_CSharp.GFFParser
     {
         private BinaryWriter _writer;
         private NWModule _module;
+        private List<Gff> _gffList;
 
-        public void SaveModule(FileStream stream, NWModule module)
+        public void SaveModule(Stream outStream, NWModule module)
         {
-            _writer = new BinaryWriter(stream);
+            _writer = new BinaryWriter(outStream);
             _module = module;
+            _gffList = _module.ToGff();
+
+            // TODO: DEBUGGING
+
+            TempStaticStorage.WriterGffList = _gffList;
+
+            // TODO: END DEBUGGING
 
             WriteHeader();
             WriteStrings();
