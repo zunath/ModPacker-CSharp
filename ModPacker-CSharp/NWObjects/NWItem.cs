@@ -140,78 +140,78 @@ namespace ModPacker_CSharp.NWObjects
         public GffStruct ToGff()
         {
             GffStruct gff = new GffStruct();
-            gff.Add("AddCost", new GffField { DWordValue = AdditionalCost });
-            gff.Add("BaseItem", new GffField { IntValue = BaseItemID });
-            gff.Add("Charges", new GffField { ByteValue =  Charges });
-            gff.Add("Cost", new GffField { DWordValue = Cost });
-            gff.Add("Cursed", new GffField { ByteValue = Convert.ToByte(IsCursed) });
+            gff.Add("AddCost", new GffField(GffFieldType.DWord) { DWordValue = AdditionalCost });
+            gff.Add("BaseItem", new GffField(GffFieldType.Int) { IntValue = BaseItemID });
+            gff.Add("Charges", new GffField(GffFieldType.Byte) { ByteValue =  Charges });
+            gff.Add("Cost", new GffField(GffFieldType.DWord) { DWordValue = Cost });
+            gff.Add("Cursed", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(IsCursed) });
 
 
-            GffField tempField = new GffField();
+            GffField tempField = new GffField(GffFieldType.CExoLocString);
             tempField.LocalizedStrings.Add(IdentifiedDescription);
             gff.Add("DescIdentified", tempField);
 
-            tempField = new GffField();
+            tempField = new GffField(GffFieldType.CExoLocString);
             tempField.LocalizedStrings.Add(UnidentifiedDescription);
             gff.Add("Description", tempField);
             
-            tempField = new GffField();
+            tempField = new GffField(GffFieldType.CExoLocString);
             tempField.LocalizedStrings.Add(LocalizedName);
             gff.Add("LocName", tempField);
             
-            gff.Add("Plot", new GffField { ByteValue = Convert.ToByte(IsPlot) });
-            gff.Add("StackSize", new GffField { WordValue = StackSize });
-            gff.Add("Stolen", new GffField { ByteValue = Convert.ToByte(IsStolen) });
-            gff.Add("Tag", new GffField { StringValue = Tag });
-            gff.Add("TemplateResRef", new GffField { ResrefValue = TemplateResref });
+            gff.Add("Plot", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(IsPlot) });
+            gff.Add("StackSize", new GffField(GffFieldType.Word) { WordValue = StackSize });
+            gff.Add("Stolen", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(IsStolen) });
+            gff.Add("Tag", new GffField(GffFieldType.CExoString) { StringValue = Tag });
+            gff.Add("TemplateResRef", new GffField(GffFieldType.ResRef) { ResrefValue = TemplateResref });
 
-            gff.Add("Cloth1Color", new GffField { ByteValue = Cloth1Color });
-            gff.Add("Cloth2Color", new GffField { ByteValue = Cloth2Color });
-            gff.Add("Leather1Color", new GffField { ByteValue = Leather1Color });
-            gff.Add("Leather2Color", new GffField { ByteValue = Leather2Color });
-            gff.Add("Metal1Color", new GffField { ByteValue = Metal1Color });
-            gff.Add("Metal2Color", new GffField { ByteValue = Metal2Color });
-
-
-            gff.Add("ModelPart1", new GffField { ByteValue = ModelPart1 });
-            gff.Add("ModelPart2", new GffField { ByteValue = ModelPart2 });
-            gff.Add("ModelPart3", new GffField { ByteValue = ModelPart3 });
+            gff.Add("Cloth1Color", new GffField(GffFieldType.Byte) { ByteValue = Cloth1Color });
+            gff.Add("Cloth2Color", new GffField(GffFieldType.Byte) { ByteValue = Cloth2Color });
+            gff.Add("Leather1Color", new GffField(GffFieldType.Byte) { ByteValue = Leather1Color });
+            gff.Add("Leather2Color", new GffField(GffFieldType.Byte) { ByteValue = Leather2Color });
+            gff.Add("Metal1Color", new GffField(GffFieldType.Byte) { ByteValue = Metal1Color });
+            gff.Add("Metal2Color", new GffField(GffFieldType.Byte) { ByteValue = Metal2Color });
 
 
-            gff.Add("ArmorPart_LBicep", new GffField { ByteValue = ArmorPart_LeftBicep });
-            gff.Add("ArmorPart_LFArm", new GffField { ByteValue = ArmorPart_LeftForearm });
-            gff.Add("ArmorPart_LFoot", new GffField { ByteValue = ArmorPart_LeftFoot });
-            gff.Add("ArmorPart_LHand", new GffField { ByteValue = ArmorPart_LeftHand });
-            gff.Add("ArmorPart_LShin", new GffField { ByteValue = ArmorPart_LeftShin });
-            gff.Add("ArmorPart_LShoul", new GffField { ByteValue = ArmorPart_LeftShoulder });
-            gff.Add("ArmorPart_LThigh", new GffField { ByteValue = ArmorPart_LeftThigh });
-            gff.Add("ArmorPart_Neck", new GffField { ByteValue = ArmorPart_Neck });
-            gff.Add("ArmorPart_Pelvis", new GffField { ByteValue = ArmorPart_Pelvis });
-            gff.Add("ArmorPart_RBicep", new GffField { ByteValue = ArmorPart_RightBicep });
-            gff.Add("ArmorPart_RFArm", new GffField { ByteValue = ArmorPart_RightForearm });
-            gff.Add("ArmorPart_RFoot", new GffField { ByteValue = ArmorPart_RightFoot });
-            gff.Add("ArmorPart_RHand", new GffField { ByteValue = ArmorPart_RightHand });
-            gff.Add("ArmorPart_Robe", new GffField { ByteValue = ArmorPart_Robe });
-            gff.Add("ArmorPart_RShin", new GffField { ByteValue = ArmorPart_RightShin });
-            gff.Add("ArmorPart_RShoul", new GffField { ByteValue = ArmorPart_RightShoulder });
-            gff.Add("ArmorPart_RThigh", new GffField { ByteValue = ArmorPart_RightThigh });
-            gff.Add("ArmorPart_Torso", new GffField { ByteValue = ArmorPart_Torso });
+            gff.Add("ModelPart1", new GffField(GffFieldType.Byte) { ByteValue = ModelPart1 });
+            gff.Add("ModelPart2", new GffField(GffFieldType.Byte) { ByteValue = ModelPart2 });
+            gff.Add("ModelPart3", new GffField(GffFieldType.Byte) { ByteValue = ModelPart3 });
 
 
-            GffField propertiesList = new GffField();
+            gff.Add("ArmorPart_LBicep", new GffField(GffFieldType.Byte) { ByteValue = ArmorPart_LeftBicep });
+            gff.Add("ArmorPart_LFArm", new GffField(GffFieldType.Byte) { ByteValue = ArmorPart_LeftForearm });
+            gff.Add("ArmorPart_LFoot", new GffField(GffFieldType.Byte) { ByteValue = ArmorPart_LeftFoot });
+            gff.Add("ArmorPart_LHand", new GffField(GffFieldType.Byte) { ByteValue = ArmorPart_LeftHand });
+            gff.Add("ArmorPart_LShin", new GffField(GffFieldType.Byte) { ByteValue = ArmorPart_LeftShin });
+            gff.Add("ArmorPart_LShoul", new GffField(GffFieldType.Byte) { ByteValue = ArmorPart_LeftShoulder });
+            gff.Add("ArmorPart_LThigh", new GffField(GffFieldType.Byte) { ByteValue = ArmorPart_LeftThigh });
+            gff.Add("ArmorPart_Neck", new GffField(GffFieldType.Byte) { ByteValue = ArmorPart_Neck });
+            gff.Add("ArmorPart_Pelvis", new GffField(GffFieldType.Byte) { ByteValue = ArmorPart_Pelvis });
+            gff.Add("ArmorPart_RBicep", new GffField(GffFieldType.Byte) { ByteValue = ArmorPart_RightBicep });
+            gff.Add("ArmorPart_RFArm", new GffField(GffFieldType.Byte) { ByteValue = ArmorPart_RightForearm });
+            gff.Add("ArmorPart_RFoot", new GffField(GffFieldType.Byte) { ByteValue = ArmorPart_RightFoot });
+            gff.Add("ArmorPart_RHand", new GffField(GffFieldType.Byte) { ByteValue = ArmorPart_RightHand });
+            gff.Add("ArmorPart_Robe", new GffField(GffFieldType.Byte) { ByteValue = ArmorPart_Robe });
+            gff.Add("ArmorPart_RShin", new GffField(GffFieldType.Byte) { ByteValue = ArmorPart_RightShin });
+            gff.Add("ArmorPart_RShoul", new GffField(GffFieldType.Byte) { ByteValue = ArmorPart_RightShoulder });
+            gff.Add("ArmorPart_RThigh", new GffField(GffFieldType.Byte) { ByteValue = ArmorPart_RightThigh });
+            gff.Add("ArmorPart_Torso", new GffField(GffFieldType.Byte) { ByteValue = ArmorPart_Torso });
+
+
+            GffField propertiesList = new GffField(GffFieldType.List);
             foreach (var property in ItemProperties)
             {
                 GffStruct gffProperty = new GffStruct
                 {
-                    {"ChanceAppear", new GffField {ByteValue = property.ChanceAppear}},
-                    {"CostTable", new GffField {ByteValue = property.CostTable}},
-                    {"CostValue", new GffField {WordValue = property.CostValue}},
-                    {"Param1", new GffField {ByteValue = property.Param1}},
-                    {"Param1Value", new GffField {ByteValue = property.Param1Value}},
-                    {"Param2", new GffField {ByteValue = property.Param2}},
-                    {"Param2Value", new GffField {ByteValue = property.Param2Value}},
-                    {"PropertyName", new GffField {WordValue = property.PropertyName}},
-                    {"Subtype", new GffField {WordValue = property.Subtype}}
+                    {"ChanceAppear", new GffField(GffFieldType.Byte) {ByteValue = property.ChanceAppear}},
+                    {"CostTable", new GffField(GffFieldType.Byte) {ByteValue = property.CostTable}},
+                    {"CostValue", new GffField(GffFieldType.Word) {WordValue = property.CostValue}},
+                    {"Param1", new GffField(GffFieldType.Byte) {ByteValue = property.Param1}},
+                    {"Param1Value", new GffField(GffFieldType.Byte) {ByteValue = property.Param1Value}},
+                    {"Param2", new GffField(GffFieldType.Byte) {ByteValue = property.Param2}},
+                    {"Param2Value", new GffField(GffFieldType.Byte) {ByteValue = property.Param2Value}},
+                    {"PropertyName", new GffField(GffFieldType.Word) {WordValue = property.PropertyName}},
+                    {"Subtype", new GffField(GffFieldType.Word) {WordValue = property.Subtype}}
                 };
                 propertiesList.ListValue.Add(gffProperty);
             }

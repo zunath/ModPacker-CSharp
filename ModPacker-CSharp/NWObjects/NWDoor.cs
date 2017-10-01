@@ -30,12 +30,12 @@ namespace ModPacker_CSharp.NWObjects
         public GffStruct ToGff()
         {
             GffStruct gff = SharedFieldsToGff();
-            gff.Add("GenericType", new GffField { ByteValue = GenericTypeID });
-            gff.Add("LinkedTo", new GffField { StringValue = LinkedTo });
-            gff.Add("LinkedToFlags", new GffField { ByteValue = (byte)LinkType });
-            gff.Add("LoadScreenID", new GffField { WordValue = LoadScreenID });
-            gff.Add("OnClick", new GffField { ResrefValue = OnClick });
-            gff.Add("OnFailToOpen", new GffField { ResrefValue = OnFailToOpen });
+            gff.Add("GenericType", new GffField(GffFieldType.Byte) { ByteValue = GenericTypeID });
+            gff.Add("LinkedTo", new GffField(GffFieldType.CExoString) { StringValue = LinkedTo });
+            gff.Add("LinkedToFlags", new GffField(GffFieldType.Byte) { ByteValue = (byte)LinkType });
+            gff.Add("LoadScreenID", new GffField(GffFieldType.Word) { WordValue = LoadScreenID });
+            gff.Add("OnClick", new GffField(GffFieldType.ResRef) { ResrefValue = OnClick });
+            gff.Add("OnFailToOpen", new GffField(GffFieldType.ResRef) { ResrefValue = OnFailToOpen });
 
             return gff;
         }

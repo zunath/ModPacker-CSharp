@@ -189,94 +189,94 @@ namespace ModPacker_CSharp.NWObjects
         public GffStruct ToGff()
         {
             GffStruct gff = new GffStruct();
-            gff.Add("Appearance_Type", new GffField { WordValue = AppearanceTypeID });
-            gff.Add("BodyBag", new GffField { ByteValue = BodyBagID });
-            gff.Add("Cha", new GffField { ByteValue = Charisma });
-            gff.Add("ChallengeRating", new GffField { FloatValue = ChallengeRating });
-            gff.Add("Con", new GffField { ByteValue = Constitution });
-            gff.Add("CRAdjust", new GffField { IntValue = ChallengeRatingAdjustment });
-            gff.Add("CurrentHitPoints", new GffField { ShortValue = CurrentHitPoints });
-            gff.Add("DecayTime", new GffField { DWordValue = DecayTime });
-            gff.Add("Deity", new GffField { StringValue = Deity });
+            gff.Add("Appearance_Type", new GffField(GffFieldType.Word) { WordValue = AppearanceTypeID });
+            gff.Add("BodyBag", new GffField(GffFieldType.Byte) { ByteValue = BodyBagID });
+            gff.Add("Cha", new GffField(GffFieldType.Byte) { ByteValue = Charisma });
+            gff.Add("ChallengeRating", new GffField(GffFieldType.Float) { FloatValue = ChallengeRating });
+            gff.Add("Con", new GffField(GffFieldType.Byte) { ByteValue = Constitution });
+            gff.Add("CRAdjust", new GffField(GffFieldType.Int) { IntValue = ChallengeRatingAdjustment });
+            gff.Add("CurrentHitPoints", new GffField(GffFieldType.Short) {ShortValue = CurrentHitPoints });
+            gff.Add("DecayTime", new GffField(GffFieldType.DWord) { DWordValue = DecayTime });
+            gff.Add("Deity", new GffField(GffFieldType.CExoString) { StringValue = Deity });
 
-            GffField tempField = new GffField();
+            GffField tempField = new GffField(GffFieldType.CExoLocString);
             tempField.LocalizedStrings.Add(Description);
             gff.Add("Description", tempField);
             
-            gff.Add("Dex", new GffField { ByteValue = Dexterity });
-            gff.Add("Disarmable", new GffField { ByteValue = Convert.ToByte(IsDisarmable) });
-            gff.Add("FactionID", new GffField { WordValue = FactionID });
+            gff.Add("Dex", new GffField(GffFieldType.Byte) { ByteValue = Dexterity });
+            gff.Add("Disarmable", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(IsDisarmable) });
+            gff.Add("FactionID", new GffField(GffFieldType.Word) { WordValue = FactionID });
 
-            tempField = new GffField();
+            tempField = new GffField(GffFieldType.CExoLocString);
             tempField.LocalizedStrings.Add(FirstName);
             gff.Add("FirstName", tempField);
             
-            gff.Add("fortbonus", new GffField { ShortValue = FortitudeBonus });
-            gff.Add("Gender", new GffField { ByteValue = (byte)Gender });
-            gff.Add("GoodEvil", new GffField { ByteValue = GoodEvil });
-            gff.Add("HitPoints", new GffField { ShortValue = HitPoints });
-            gff.Add("Int", new GffField { ByteValue = Intelligence });
-            gff.Add("Interruptable", new GffField { ByteValue = Convert.ToByte(IsConversationInterruptable) });
-            gff.Add("IsImmortal", new GffField { ByteValue = Convert.ToByte(IsImmortal) });
-            gff.Add("IsPC", new GffField { ByteValue = Convert.ToByte(IsPC) });
+            gff.Add("fortbonus", new GffField(GffFieldType.Short) {ShortValue = FortitudeBonus });
+            gff.Add("Gender", new GffField(GffFieldType.Byte) { ByteValue = (byte)Gender });
+            gff.Add("GoodEvil", new GffField(GffFieldType.Byte) { ByteValue = GoodEvil });
+            gff.Add("HitPoints", new GffField(GffFieldType.Short) {ShortValue = HitPoints });
+            gff.Add("Int", new GffField(GffFieldType.Byte) { ByteValue = Intelligence });
+            gff.Add("Interruptable", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(IsConversationInterruptable) });
+            gff.Add("IsImmortal", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(IsImmortal) });
+            gff.Add("IsPC", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(IsPC) });
 
-            tempField = new GffField();
+            tempField = new GffField(GffFieldType.CExoLocString);
             tempField.LocalizedStrings.Add(LastName);
             gff.Add("LastName", tempField);
             
-            gff.Add("LawfulChaotic", new GffField { ByteValue = LawfulChaotic });
-            gff.Add("Lootable", new GffField { ByteValue = Convert.ToByte(IsLootable) });
-            gff.Add("MaxHitPoints", new GffField { ShortValue = MaxHitPoints });
-            gff.Add("NaturalAC", new GffField { ByteValue = NaturalAC });
-            gff.Add("NoPermDeath", new GffField { ByteValue = Convert.ToByte(HasNoPermanentDeath) });
-            gff.Add("PerceptionRange", new GffField { ByteValue = PerceptionRangeID });
-            gff.Add("Phenotype", new GffField { IntValue = PhenotypeID });
-            gff.Add("Plot", new GffField { ByteValue = Convert.ToByte(IsPlot) });
-            gff.Add("PortraitId", new GffField { WordValue = PortraitID });
-            gff.Add("Race", new GffField { ByteValue = RaceID });
-            gff.Add("refbonus", new GffField { ShortValue = ReflexBonus });
-            gff.Add("ScriptAttacked", new GffField { ResrefValue = OnPhysicalAttacked });
-            gff.Add("ScriptDamaged", new GffField { ResrefValue = OnDamaged });
-            gff.Add("ScriptDeath", new GffField { ResrefValue = OnDeath });
-            gff.Add("ScriptDialogue", new GffField { ResrefValue = OnConversation });
-            gff.Add("ScriptDisturbed", new GffField { ResrefValue = OnInventoryDisturbed });
-            gff.Add("ScriptEndRound", new GffField { ResrefValue = OnCombatRoundEnd });
-            gff.Add("ScriptHeartbeat", new GffField { ResrefValue = OnHeartbeat });
-            gff.Add("ScriptOnBlocked", new GffField { ResrefValue = OnBlocked });
-            gff.Add("ScriptOnNotice", new GffField { ResrefValue = OnPerception });
-            gff.Add("ScriptRested", new GffField { ResrefValue = OnRested });
-            gff.Add("ScriptSpawn", new GffField { ResrefValue = OnSpawn });
-            gff.Add("ScriptSpellAt", new GffField { ResrefValue = OnSpellCastAt });
-            gff.Add("ScriptUserDefine", new GffField { ResrefValue = OnUserDefined });
-            gff.Add("SoundSetFile", new GffField { WordValue = SoundSetFileID });
-            gff.Add("StartingPackage", new GffField { ByteValue = StartingPackageID });
-            gff.Add("Str", new GffField { ByteValue = Strength });
-            gff.Add("Subrace", new GffField { StringValue = Subrace });
-            gff.Add("Tag", new GffField { StringValue = Tag });
-            gff.Add("Tail_New", new GffField { ByteValue = TailID });
-            gff.Add("WalkRate", new GffField { IntValue = WalkRate });
-            gff.Add("willbonus", new GffField { ShortValue = WillBonus });
-            gff.Add("Wings_New", new GffField { ByteValue = WingsID });
+            gff.Add("LawfulChaotic", new GffField(GffFieldType.Byte) { ByteValue = LawfulChaotic });
+            gff.Add("Lootable", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(IsLootable) });
+            gff.Add("MaxHitPoints", new GffField(GffFieldType.Short) {ShortValue = MaxHitPoints });
+            gff.Add("NaturalAC", new GffField(GffFieldType.Byte) { ByteValue = NaturalAC });
+            gff.Add("NoPermDeath", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(HasNoPermanentDeath) });
+            gff.Add("PerceptionRange", new GffField(GffFieldType.Byte) { ByteValue = PerceptionRangeID });
+            gff.Add("Phenotype", new GffField(GffFieldType.Int) { IntValue = PhenotypeID });
+            gff.Add("Plot", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(IsPlot) });
+            gff.Add("PortraitId", new GffField(GffFieldType.Word) { WordValue = PortraitID });
+            gff.Add("Race", new GffField(GffFieldType.Byte) { ByteValue = RaceID });
+            gff.Add("refbonus", new GffField(GffFieldType.Short) {ShortValue = ReflexBonus });
+            gff.Add("ScriptAttacked", new GffField(GffFieldType.ResRef) { ResrefValue = OnPhysicalAttacked });
+            gff.Add("ScriptDamaged", new GffField(GffFieldType.ResRef) { ResrefValue = OnDamaged });
+            gff.Add("ScriptDeath", new GffField(GffFieldType.ResRef) { ResrefValue = OnDeath });
+            gff.Add("ScriptDialogue", new GffField(GffFieldType.ResRef) { ResrefValue = OnConversation });
+            gff.Add("ScriptDisturbed", new GffField(GffFieldType.ResRef) { ResrefValue = OnInventoryDisturbed });
+            gff.Add("ScriptEndRound", new GffField(GffFieldType.ResRef) { ResrefValue = OnCombatRoundEnd });
+            gff.Add("ScriptHeartbeat", new GffField(GffFieldType.ResRef) { ResrefValue = OnHeartbeat });
+            gff.Add("ScriptOnBlocked", new GffField(GffFieldType.ResRef) { ResrefValue = OnBlocked });
+            gff.Add("ScriptOnNotice", new GffField(GffFieldType.ResRef) { ResrefValue = OnPerception });
+            gff.Add("ScriptRested", new GffField(GffFieldType.ResRef) { ResrefValue = OnRested });
+            gff.Add("ScriptSpawn", new GffField(GffFieldType.ResRef) { ResrefValue = OnSpawn });
+            gff.Add("ScriptSpellAt", new GffField(GffFieldType.ResRef) { ResrefValue = OnSpellCastAt });
+            gff.Add("ScriptUserDefine", new GffField(GffFieldType.ResRef) { ResrefValue = OnUserDefined });
+            gff.Add("SoundSetFile", new GffField(GffFieldType.Word) { WordValue = SoundSetFileID });
+            gff.Add("StartingPackage", new GffField(GffFieldType.Byte) { ByteValue = StartingPackageID });
+            gff.Add("Str", new GffField(GffFieldType.Byte) { ByteValue = Strength });
+            gff.Add("Subrace", new GffField(GffFieldType.CExoString) { StringValue = Subrace });
+            gff.Add("Tag", new GffField(GffFieldType.CExoString) { StringValue = Tag });
+            gff.Add("Tail_New", new GffField(GffFieldType.Byte) { ByteValue = TailID });
+            gff.Add("WalkRate", new GffField(GffFieldType.Int) { IntValue = WalkRate });
+            gff.Add("willbonus", new GffField(GffFieldType.Short) { ShortValue = WillBonus });
+            gff.Add("Wings_New", new GffField(GffFieldType.Byte) { ByteValue = WingsID });
             
-            GffField classList = new GffField();
+            GffField classList = new GffField(GffFieldType.List);
             foreach (var @class in Classes)
             {
                 GffStruct gffClass = new GffStruct
                 {
-                    {"Class", new GffField {IntValue = @class.ClassID}},
-                    {"ClassLevel", new GffField{ShortValue = @class.ClassLevel}}
+                    {"Class", new GffField(GffFieldType.Int) {IntValue = @class.ClassID}},
+                    {"ClassLevel", new GffField(GffFieldType.Short){ShortValue = @class.ClassLevel}}
                 };
                 classList.ListValue.Add(gffClass);
             }
             gff.Add("ClassList", classList);
 
 
-            GffField featList = new GffField();
+            GffField featList = new GffField(GffFieldType.List);
             foreach (var featID in FeatIDs)
             {
                 GffStruct gffFeatID = new GffStruct
                 {
-                    {"Feat", new GffField {WordValue = featID}}
+                    {"Feat", new GffField(GffFieldType.Word) {WordValue = featID}}
                 };
                 featList.ListValue.Add(gffFeatID);
             }
@@ -285,26 +285,26 @@ namespace ModPacker_CSharp.NWObjects
             // TODO: ItemList struct
 
 
-            GffField skillList = new GffField();
+            GffField skillList = new GffField(GffFieldType.List);
             foreach (var skill in SkillRanks)
             {
                 GffStruct gffSkill = new GffStruct
                 {
-                    {"Rank", new GffField {ByteValue = skill}}
+                    {"Rank", new GffField(GffFieldType.Byte) {ByteValue = skill}}
                 };
                 skillList.ListValue.Add(gffSkill);
             }
             gff.Add("SkillList", skillList);
 
 
-            GffField specialAbilityList = new GffField();
+            GffField specialAbilityList = new GffField(GffFieldType.List);
             foreach (var specialAbility in SpecialAbilities)
             {
                 GffStruct gffSpecialAbility = new GffStruct
                 {
-                    {"SpellCasterLevel", new GffField {ByteValue = specialAbility.SpellCasterLevel}},
-                    {"Spell", new GffField {WordValue = specialAbility.SpellID}},
-                    {"SpellFlags", new GffField {ByteValue = (byte)specialAbility.SpellFlags}}
+                    {"SpellCasterLevel", new GffField(GffFieldType.Byte) {ByteValue = specialAbility.SpellCasterLevel}},
+                    {"Spell", new GffField(GffFieldType.Word) {WordValue = specialAbility.SpellID}},
+                    {"SpellFlags", new GffField(GffFieldType.Byte) {ByteValue = (byte)specialAbility.SpellFlags}}
                 };
                 specialAbilityList.ListValue.Add(gffSpecialAbility);
             }

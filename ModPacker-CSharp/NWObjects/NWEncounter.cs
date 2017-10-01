@@ -114,44 +114,44 @@ namespace ModPacker_CSharp.NWObjects
         public GffStruct ToGff()
         {
             GffStruct gff = new GffStruct();
-            gff.Add("Active", new GffField { ByteValue = Convert.ToByte(IsActive) });
-            gff.Add("Difficulty", new GffField { IntValue = Difficulty });
-            gff.Add("DifficultyIndex", new GffField { IntValue = DifficultyIndex });
-            gff.Add("Faction", new GffField { DWordValue = FactionID });
+            gff.Add("Active", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(IsActive) });
+            gff.Add("Difficulty", new GffField(GffFieldType.Int) { IntValue = Difficulty });
+            gff.Add("DifficultyIndex", new GffField(GffFieldType.Int) { IntValue = DifficultyIndex });
+            gff.Add("Faction", new GffField(GffFieldType.DWord) { DWordValue = FactionID });
             
-            GffField tempField = new GffField();
+            GffField tempField = new GffField(GffFieldType.CExoLocString);
             tempField.LocalizedStrings.Add(Name);
             gff.Add("LocalizedName", tempField);
             
-            gff.Add("MaxCreatures", new GffField { IntValue = MaximumCreatures });
-            gff.Add("OnEntered", new GffField { ResrefValue = OnEntered });
-            gff.Add("OnExhausted", new GffField { ResrefValue = OnExhausted });
-            gff.Add("OnExit", new GffField { ResrefValue = OnExit });
-            gff.Add("OnHeartbeat", new GffField { ResrefValue = OnHeartbeat});
-            gff.Add("OnUserDefined", new GffField { ResrefValue = OnUserDefined });
-            gff.Add("PlayerOnly", new GffField { ByteValue = Convert.ToByte(PlayerOnly) });
-            gff.Add("RecCreatures", new GffField { IntValue = RecommendedNumberOfCreatures });
-            gff.Add("Reset", new GffField { ByteValue = Convert.ToByte(Respawns) });
-            gff.Add("ResetTime", new GffField { IntValue = RespawnTime });
-            gff.Add("Respawns", new GffField { IntValue = NumberOfRespawns });
-            gff.Add("SpawnOption", new GffField { IntValue = Convert.ToInt32(IsContinuousSpawn) });
-            gff.Add("Tag", new GffField { StringValue = Tag });
-            gff.Add("TemplateResRef", new GffField { ResrefValue = TemplateResref });
+            gff.Add("MaxCreatures", new GffField(GffFieldType.Int) { IntValue = MaximumCreatures });
+            gff.Add("OnEntered", new GffField(GffFieldType.ResRef) { ResrefValue = OnEntered });
+            gff.Add("OnExhausted", new GffField(GffFieldType.ResRef) { ResrefValue = OnExhausted });
+            gff.Add("OnExit", new GffField(GffFieldType.ResRef) { ResrefValue = OnExit });
+            gff.Add("OnHeartbeat", new GffField(GffFieldType.ResRef) { ResrefValue = OnHeartbeat});
+            gff.Add("OnUserDefined", new GffField(GffFieldType.ResRef) { ResrefValue = OnUserDefined });
+            gff.Add("PlayerOnly", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(PlayerOnly) });
+            gff.Add("RecCreatures", new GffField(GffFieldType.Int) { IntValue = RecommendedNumberOfCreatures });
+            gff.Add("Reset", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(Respawns) });
+            gff.Add("ResetTime", new GffField(GffFieldType.Int) { IntValue = RespawnTime });
+            gff.Add("Respawns", new GffField(GffFieldType.Int) { IntValue = NumberOfRespawns });
+            gff.Add("SpawnOption", new GffField(GffFieldType.Int) { IntValue = Convert.ToInt32(IsContinuousSpawn) });
+            gff.Add("Tag", new GffField(GffFieldType.CExoString) { StringValue = Tag });
+            gff.Add("TemplateResRef", new GffField(GffFieldType.ResRef) { ResrefValue = TemplateResref });
 
-            gff.Add("XPosition", new GffField { FloatValue = XPosition });
-            gff.Add("YPosition", new GffField { FloatValue = YPosition });
-            gff.Add("ZPosition", new GffField { FloatValue = ZPosition });
+            gff.Add("XPosition", new GffField(GffFieldType.Float) { FloatValue = XPosition });
+            gff.Add("YPosition", new GffField(GffFieldType.Float) { FloatValue = YPosition });
+            gff.Add("ZPosition", new GffField(GffFieldType.Float) { FloatValue = ZPosition });
 
-            GffField creatureList = new GffField();
+            GffField creatureList = new GffField(GffFieldType.List);
 
             foreach (var creature in CreatureList)
             {
                 GffStruct gffCreature = new GffStruct
                 {
-                    {"ResRef", new GffField{ResrefValue = creature.Resref}},
-                    {"Appearance", new GffField{IntValue = creature.AppearanceID}},
-                    {"CR", new GffField{FloatValue = creature.ChallengeRating}},
-                    {"SingleSpawn", new GffField{ByteValue = Convert.ToByte(creature.IsSingleSpawn)}},
+                    {"ResRef", new GffField(GffFieldType.ResRef){ResrefValue = creature.Resref}},
+                    {"Appearance", new GffField(GffFieldType.Int){IntValue = creature.AppearanceID}},
+                    {"CR", new GffField(GffFieldType.Float){FloatValue = creature.ChallengeRating}},
+                    {"SingleSpawn", new GffField(GffFieldType.Byte){ByteValue = Convert.ToByte(creature.IsSingleSpawn)}},
                 };
 
                 creatureList.ListValue.Add(gffCreature);
@@ -159,14 +159,14 @@ namespace ModPacker_CSharp.NWObjects
 
             gff.Add("CreatureList", creatureList);
 
-            GffField geometry = new GffField();
+            GffField geometry = new GffField(GffFieldType.Struct);
             foreach (NWPoint point in Geometry)
             {
                 GffStruct @struct = new GffStruct
                 {
-                    {"X", new GffField {FloatValue = point.X}},
-                    {"Y", new GffField {FloatValue = point.Y}},
-                    {"Z", new GffField {FloatValue = point.Z}}
+                    {"X", new GffField(GffFieldType.Float) {FloatValue = point.X}},
+                    {"Y", new GffField(GffFieldType.Float) {FloatValue = point.Y}},
+                    {"Z", new GffField(GffFieldType.Float) {FloatValue = point.Z}}
                 };
 
                 geometry.ListValue.Add(@struct);
@@ -175,16 +175,16 @@ namespace ModPacker_CSharp.NWObjects
             gff.Add("Geometry", geometry);
 
 
-            GffField spawnPointList = new GffField();
+            GffField spawnPointList = new GffField(GffFieldType.List);
 
             foreach (var spawnPoint in SpawnPoints)
             {
                 GffStruct gffSpawnPoint = new GffStruct
                 {
-                    {"X", new GffField{FloatValue = spawnPoint.PositionX}},
-                    {"Y", new GffField{FloatValue = spawnPoint.PositionY}},
-                    {"Z", new GffField{FloatValue = spawnPoint.PositionZ}},
-                    {"Orientation", new GffField{FloatValue = spawnPoint.Orientation}},
+                    {"X", new GffField(GffFieldType.Float){FloatValue = spawnPoint.PositionX}},
+                    {"Y", new GffField(GffFieldType.Float){FloatValue = spawnPoint.PositionY}},
+                    {"Z", new GffField(GffFieldType.Float){FloatValue = spawnPoint.PositionZ}},
+                    {"Orientation", new GffField(GffFieldType.Float){FloatValue = spawnPoint.Orientation}},
                 };
 
                 spawnPointList.ListValue.Add(gffSpawnPoint);

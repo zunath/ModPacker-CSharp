@@ -146,9 +146,8 @@ namespace ModPacker_CSharp.GFFParser
                 _reader.BaseStream.Seek(_fieldDataOffset + rawField.DataOrDataOffset, SeekOrigin.Begin);
             }
 
-            GffField field = new GffField
+            GffField field = new GffField(rawField.FieldType)
             {
-                FieldType = rawField.FieldType,
                 Parent = parent,
                 Label = _labels[(int)rawField.LabelIndex]
             };

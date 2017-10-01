@@ -26,8 +26,9 @@ namespace ModPacker_CSharp.GFFParser
         public GffStruct StructValue { get; set; }
         public List<GffStruct> ListValue { get; set; } 
 
-        public GffField()
+        public GffField(GffFieldType fieldType)
         {
+            FieldType = fieldType;
             LocalizedStrings = new List<NWLocalizedString>();
             ListValue = new List<GffStruct>();
         }

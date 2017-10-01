@@ -209,9 +209,175 @@ namespace ModPacker_CSharp.NWObjects
             return module;
         }
 
-        public Gff ToGff()
+        public List<Gff> ToGff()
         {
-            throw new System.NotImplementedException();
+            List<Gff> gff = new List<Gff>();
+
+            // Build IFO
+            Gff ifo = new Gff
+            {
+                ResourceType = GffResourceType.IFO,
+                Resref = "module",
+                RootStruct = new GffStruct()
+            };
+
+            ushort expansion = 0;
+            if (UsesSOU && UsesHOTU)
+                expansion = 3;
+            else if (UsesSOU && !UsesHOTU)
+                expansion = 1;
+            else if (!UsesSOU && UsesHOTU)
+                expansion = 2;
+
+            ifo.RootStruct.Add("Expansion_Pack", new GffField(GffFieldType.Word) { WordValue = expansion });
+            ifo.RootStruct.Add("Mod_Creator_ID", new GffField(GffFieldType.Int) { IntValue = CreatorID });
+            ifo.RootStruct.Add("Mod_CustomTlk", new GffField(GffFieldType.CExoString) { StringValue = CustomTLK });
+            ifo.RootStruct.Add("Mod_DawnHour", new GffField(GffFieldType.Byte) { ByteValue = DawnHour});
+
+            GffField tempField = new GffField(GffFieldType.CExoLocString);
+            tempField.LocalizedStrings.Add(Description);
+            ifo.RootStruct.Add("Mod_Description", tempField);
+
+            ifo.RootStruct.Add("Mod_DuskHour", new GffField(GffFieldType.Byte) { ByteValue = DuskHour });
+            ifo.RootStruct.Add("Mod_Entry_Area", new GffField(GffFieldType.ResRef) { ResrefValue = EntryAreaResref });
+            ifo.RootStruct.Add("Mod_Entry_Dir_X", new GffField(GffFieldType.Float) { FloatValue = EntryDirectionX });
+            ifo.RootStruct.Add("Mod_Entry_Dir_Y", new GffField(GffFieldType.Float) { FloatValue = EntryDirectionY });
+            ifo.RootStruct.Add("Mod_Entry_X", new GffField(GffFieldType.Float) { FloatValue = EntryPositionX });
+            ifo.RootStruct.Add("Mod_Entry_Y", new GffField(GffFieldType.Float) { FloatValue = EntryPositionY });
+            ifo.RootStruct.Add("Mod_Entry_Z", new GffField(GffFieldType.Float) { FloatValue = EntryPositionZ });
+            ifo.RootStruct.Add("Mod_ID", new GffField(GffFieldType.Void) { VoidDataValue = BitConverter.GetBytes(ModuleID) });
+            ifo.RootStruct.Add("Mod_IsSaveGame", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(IsSaveGame) });
+            ifo.RootStruct.Add("Mod_MinGameVer", new GffField(GffFieldType.CExoString) { StringValue = MinimumGameVersion});
+            ifo.RootStruct.Add("Mod_MinPerHour", new GffField(GffFieldType.Byte) { ByteValue = MinutesPerHour });
+
+            tempField = new GffField(GffFieldType.CExoLocString);
+            tempField.LocalizedStrings.Add(Name);
+            ifo.RootStruct.Add("Mod_Name", tempField);
+
+            ifo.RootStruct.Add("Mod_OnAcquirItem", new GffField(GffFieldType.ResRef) { ResrefValue = OnAcquireItem });
+            ifo.RootStruct.Add("Mod_OnActvtItem", new GffField(GffFieldType.ResRef) { ResrefValue = OnActivateItem });
+            ifo.RootStruct.Add("Mod_OnClientEntr", new GffField(GffFieldType.ResRef) { ResrefValue = OnClientEnter });
+            ifo.RootStruct.Add("Mod_OnClientLeav", new GffField(GffFieldType.ResRef) { ResrefValue = OnClientLeave });
+            ifo.RootStruct.Add("Mod_OnCutsnAbort", new GffField(GffFieldType.ResRef) { ResrefValue = OnCutsceneAbort });
+            ifo.RootStruct.Add("Mod_OnHeartbeat", new GffField(GffFieldType.ResRef) { ResrefValue = OnHeartbeat });
+            ifo.RootStruct.Add("Mod_OnModLoad", new GffField(GffFieldType.ResRef) { ResrefValue = OnModuleLoad });
+            ifo.RootStruct.Add("Mod_OnModStart", new GffField(GffFieldType.ResRef) { ResrefValue = OnModuleStart });
+            ifo.RootStruct.Add("Mod_OnPlrDeath", new GffField(GffFieldType.ResRef) { ResrefValue = OnPlayerDeath });
+            ifo.RootStruct.Add("Mod_OnPlrDying", new GffField(GffFieldType.ResRef) { ResrefValue = OnPlayerDying });
+            ifo.RootStruct.Add("Mod_OnPlrEqItm", new GffField(GffFieldType.ResRef) { ResrefValue = OnEquipItem });
+            ifo.RootStruct.Add("Mod_OnPlrLvlUp", new GffField(GffFieldType.ResRef) { ResrefValue = OnLevelUp });
+            ifo.RootStruct.Add("Mod_OnPlrUnEqItm", new GffField(GffFieldType.ResRef) { ResrefValue = OnUnequipItem });
+            ifo.RootStruct.Add("Mod_OnPlrRest", new GffField(GffFieldType.ResRef) { ResrefValue = OnPlayerRest });
+            ifo.RootStruct.Add("Mod_OnSpawnBtnDn", new GffField(GffFieldType.ResRef) { ResrefValue = OnPlayerRespawn });
+            ifo.RootStruct.Add("Mod_OnUnAqreItem", new GffField(GffFieldType.ResRef) { ResrefValue = OnUnacquireItem });
+            ifo.RootStruct.Add("Mod_OnUsrDefined", new GffField(GffFieldType.ResRef) { ResrefValue = OnUserDefined });
+            ifo.RootStruct.Add("Mod_StartDay", new GffField(GffFieldType.Byte) { ByteValue = StartDay });
+            ifo.RootStruct.Add("Mod_StartHour", new GffField(GffFieldType.Byte) { ByteValue = StartHour });
+            ifo.RootStruct.Add("Mod_StartMonth", new GffField(GffFieldType.Byte) { ByteValue = StartMonth });
+            ifo.RootStruct.Add("Mod_StartMovie", new GffField(GffFieldType.ResRef) { ResrefValue = StartMovie });
+            ifo.RootStruct.Add("Mod_StartYear", new GffField(GffFieldType.DWord) { DWordValue = StartYear });
+            ifo.RootStruct.Add("Mod_Tag", new GffField(GffFieldType.CExoString) { StringValue = Tag });
+            ifo.RootStruct.Add("Mod_Version", new GffField(GffFieldType.DWord) { DWordValue = Version });
+            ifo.RootStruct.Add("Mod_XPScale", new GffField(GffFieldType.Byte) { ByteValue = XPScale });
+
+            // Build cached scripts for IFO
+            List<GffStruct> cachedScriptsList = new List<GffStruct>();
+            foreach (var script in CachedScripts)
+            {
+                GffStruct gffScript = new GffStruct
+                {
+                    {"ResRef", new GffField(GffFieldType.ResRef){ResrefValue = script}}
+                };
+                cachedScriptsList.Add(gffScript);
+            }
+            ifo.RootStruct.Add("Mod_CacheNSSList", new GffField(GffFieldType.List) { ListValue = cachedScriptsList });
+
+            // Build hakpak list for IFO
+            List<GffStruct> hakpakList = new List<GffStruct>();
+            foreach (var hakpak in HakPaks)
+            {
+                GffStruct gffHakpak = new GffStruct
+                {
+                    {"Mod_Hak", new GffField(GffFieldType.CExoString){StringValue = hakpak} }
+                };
+                hakpakList.Add(gffHakpak);
+            }
+            ifo.RootStruct.Add("Mod_HakList", new GffField(GffFieldType.List){ListValue = hakpakList});
+            gff.Add(ifo);
+            
+            // Build areas
+            foreach (var area in Areas)
+            {
+                var tuple = area.ToGff();
+                gff.Add(tuple.Item1);
+                gff.Add(tuple.Item2);
+                gff.Add(tuple.Item3);
+            }
+            
+            gff.AddRange(PaletteCreatures.Select(creature => new Gff
+            {
+                ResourceType = GffResourceType.UTC,
+                Resref = creature.TemplateResref,
+                RootStruct = creature.ToGff()
+            }));
+
+            gff.AddRange(PaletteDoors.Select(door => new Gff
+            {
+                ResourceType = GffResourceType.UTD,
+                Resref = door.TemplateResref,
+                RootStruct = door.ToGff()
+            }));
+
+            gff.AddRange(PaletteEncounters.Select(encounter => new Gff
+            {
+                ResourceType = GffResourceType.UTE,
+                Resref = encounter.TemplateResref,
+                RootStruct = encounter.ToGff()
+            }));
+
+            gff.AddRange(PaletteItems.Select(item => new Gff
+            {
+                ResourceType = GffResourceType.UTI,
+                Resref = item.TemplateResref,
+                RootStruct = item.ToGff()
+            }));
+
+            gff.AddRange(PalettePlaceables.Select(placeable => new Gff
+            {
+                ResourceType = GffResourceType.UTP,
+                Resref = placeable.TemplateResref,
+                RootStruct = placeable.ToGff()
+            }));
+
+            gff.AddRange(PaletteSounds.Select(sound => new Gff
+            {
+                ResourceType = GffResourceType.UTS,
+                Resref = sound.TemplateResRef,
+                RootStruct = sound.ToGff()
+            }));
+
+            gff.AddRange(PaletteStores.Select(store => new Gff
+            {
+                ResourceType = GffResourceType.UTM,
+                Resref = store.TemplateResref,
+                RootStruct = store.ToGff()
+            }));
+
+            gff.AddRange(PaletteTriggers.Select(trigger => new Gff
+            {
+                ResourceType = GffResourceType.UTT,
+                Resref = trigger.TemplateResref,
+                RootStruct = trigger.ToGff()
+            }));
+
+            gff.AddRange(PaletteWaypoints.Select(waypoint => new Gff
+            {
+                ResourceType = GffResourceType.UTW,
+                Resref = waypoint.TemplateResRef,
+                RootStruct = waypoint.ToGff()
+            }));
+            
+            return gff;
         }
     }
 }

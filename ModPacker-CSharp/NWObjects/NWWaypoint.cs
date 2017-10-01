@@ -51,33 +51,33 @@ namespace ModPacker_CSharp.NWObjects
         public GffStruct ToGff()
         {
             GffStruct gff = new GffStruct();
-            gff.Add("Appearance", new GffField { ByteValue = AppearanceID });
+            gff.Add("Appearance", new GffField(GffFieldType.Byte) { ByteValue = AppearanceID });
 
-            GffField tempField = new GffField();
+            GffField tempField = new GffField(GffFieldType.CExoLocString);
             tempField.LocalizedStrings.Add(Description);
             gff.Add("Description", tempField);
 
-            gff.Add("HasMapNote", new GffField { ByteValue = Convert.ToByte(HasMapNote) });
-            gff.Add("LinkedTo", new GffField { StringValue = LinkedTo });
+            gff.Add("HasMapNote", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(HasMapNote) });
+            gff.Add("LinkedTo", new GffField(GffFieldType.CExoString) { StringValue = LinkedTo });
 
-            tempField = new GffField();
+            tempField = new GffField(GffFieldType.CExoLocString);
             tempField.LocalizedStrings.Add(LocalizedName);
             gff.Add("LocalizedName", tempField);
 
-            tempField = new GffField();
+            tempField = new GffField(GffFieldType.CExoLocString);
             tempField.LocalizedStrings.Add(MapNote);
             gff.Add("MapNote", tempField);
             
-            gff.Add("MapNoteEnabled", new GffField { ByteValue = Convert.ToByte(IsMapNoteEnabled) });
-            gff.Add("Tag", new GffField { StringValue = Tag });
-            gff.Add("Comment", new GffField { StringValue = Comment });
-            gff.Add("PaletteID", new GffField { ByteValue = PaletteID });
-            gff.Add("TemplateResRef", new GffField { ResrefValue = TemplateResRef });
-            gff.Add("XOrientation", new GffField { FloatValue = XOrientation });
-            gff.Add("YOrientation", new GffField { FloatValue = YOrientation });
-            gff.Add("XPosition", new GffField { FloatValue = XPosition });
-            gff.Add("YPosition", new GffField { FloatValue = YPosition });
-            gff.Add("ZPosition", new GffField { FloatValue = ZPosition });
+            gff.Add("MapNoteEnabled", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(IsMapNoteEnabled) });
+            gff.Add("Tag", new GffField(GffFieldType.CExoString) { StringValue = Tag });
+            gff.Add("Comment", new GffField(GffFieldType.CExoString) { StringValue = Comment });
+            gff.Add("PaletteID", new GffField(GffFieldType.Byte) { ByteValue = PaletteID });
+            gff.Add("TemplateResRef", new GffField(GffFieldType.ResRef) { ResrefValue = TemplateResRef });
+            gff.Add("XOrientation", new GffField(GffFieldType.Float) { FloatValue = XOrientation });
+            gff.Add("YOrientation", new GffField(GffFieldType.Float) { FloatValue = YOrientation });
+            gff.Add("XPosition", new GffField(GffFieldType.Float) { FloatValue = XPosition });
+            gff.Add("YPosition", new GffField(GffFieldType.Float) { FloatValue = YPosition });
+            gff.Add("ZPosition", new GffField(GffFieldType.Float) { FloatValue = ZPosition });
 
             return gff;
         }

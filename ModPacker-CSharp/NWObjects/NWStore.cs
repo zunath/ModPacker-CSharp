@@ -77,42 +77,42 @@ namespace ModPacker_CSharp.NWObjects
         public GffStruct ToGff()
         {
             GffStruct gff = new GffStruct();
-            gff.Add("BlackMarket", new GffField { ByteValue = Convert.ToByte(IsBlackMarket) });
-            gff.Add("BM_MarkDown", new GffField { IntValue = BlackMarketMarkDown });
-            gff.Add("IdentifyPrice", new GffField { IntValue = IdentifyPrice });
+            gff.Add("BlackMarket", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(IsBlackMarket) });
+            gff.Add("BM_MarkDown", new GffField(GffFieldType.Int) { IntValue = BlackMarketMarkDown });
+            gff.Add("IdentifyPrice", new GffField(GffFieldType.Int) { IntValue = IdentifyPrice });
 
-            GffField tempField = new GffField();
+            GffField tempField = new GffField(GffFieldType.CExoLocString);
             tempField.LocalizedStrings.Add(LocalizedName);
             gff.Add("LocName", tempField);
             
-            gff.Add("MarkDown", new GffField { IntValue = MarkDown });
-            gff.Add("MarkUp", new GffField {IntValue = MarkUp });
-            gff.Add("MaxBuyPrice", new GffField { IntValue = MaxBuyPrice });
-            gff.Add("OnOpenStore", new GffField { ResrefValue = OnOpenStore });
-            gff.Add("OnStoreClosed", new GffField { ResrefValue = OnCloseStore });
-            gff.Add("ResRef", new GffField { ResrefValue = Resref });
-            gff.Add("StoreGold", new GffField { IntValue = StoreGold });
-            gff.Add("Tag", new GffField { StringValue = Tag });
+            gff.Add("MarkDown", new GffField(GffFieldType.Int) { IntValue = MarkDown });
+            gff.Add("MarkUp", new GffField(GffFieldType.Int) {IntValue = MarkUp });
+            gff.Add("MaxBuyPrice", new GffField(GffFieldType.Int) { IntValue = MaxBuyPrice });
+            gff.Add("OnOpenStore", new GffField(GffFieldType.ResRef) { ResrefValue = OnOpenStore });
+            gff.Add("OnStoreClosed", new GffField(GffFieldType.ResRef) { ResrefValue = OnCloseStore });
+            gff.Add("ResRef", new GffField(GffFieldType.ResRef) { ResrefValue = Resref });
+            gff.Add("StoreGold", new GffField(GffFieldType.Int) { IntValue = StoreGold });
+            gff.Add("Tag", new GffField(GffFieldType.CExoString) { StringValue = Tag });
 
             // TODO: Inventory ItemList structure
 
-            GffField willNotBuy = new GffField();
+            GffField willNotBuy = new GffField(GffFieldType.List);
             foreach (var item in WillNotBuyList)
             {
                 GffStruct gffItem = new GffStruct
                 {
-                    {"BaseItem", new GffField {IntValue = item}}
+                    {"BaseItem", new GffField(GffFieldType.Int) {IntValue = item}}
                 };
                 willNotBuy.ListValue.Add(gffItem);
             }
             gff.Add("WillNotBuy", willNotBuy);
 
-            GffField willOnlyBuy = new GffField();
+            GffField willOnlyBuy = new GffField(GffFieldType.List);
             foreach (var item in WillOnlyBuyList)
             {
                 GffStruct gffItem = new GffStruct
                 {
-                    {"BaseItem", new GffField {IntValue = item}}
+                    {"BaseItem", new GffField(GffFieldType.Int) {IntValue = item}}
                 };
                 willOnlyBuy.ListValue.Add(gffItem);
             }

@@ -32,12 +32,12 @@ namespace ModPacker_CSharp.NWObjects
         public GffStruct ToGff()
         {
             GffStruct gff = SharedFieldsToGff();
-            gff.Add("BodyBag", new GffField { ByteValue = BodyBagID });
-            gff.Add("HasInventory", new GffField { ByteValue = Convert.ToByte(HasInventory)});
-            gff.Add("OnInvDisturbed", new GffField { ResrefValue = OnInventoryDisturbed });
-            gff.Add("OnUsed", new GffField { ResrefValue = OnUsed });
-            gff.Add("Static", new GffField { ByteValue = Convert.ToByte(IsStatic) });
-            gff.Add("Useable", new GffField { ByteValue = Convert.ToByte(IsUseable) });
+            gff.Add("BodyBag", new GffField(GffFieldType.Byte) { ByteValue = BodyBagID });
+            gff.Add("HasInventory", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(HasInventory)});
+            gff.Add("OnInvDisturbed", new GffField(GffFieldType.ResRef) { ResrefValue = OnInventoryDisturbed });
+            gff.Add("OnUsed", new GffField(GffFieldType.ResRef) { ResrefValue = OnUsed });
+            gff.Add("Static", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(IsStatic) });
+            gff.Add("Useable", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(IsUseable) });
 
             // TODO: ItemList
 

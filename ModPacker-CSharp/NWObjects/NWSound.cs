@@ -88,38 +88,38 @@ namespace ModPacker_CSharp.NWObjects
         {
             GffStruct gff = new GffStruct();
 
-            gff.Add("Active", new GffField { ByteValue = Convert.ToByte(IsActive) });
-            gff.Add("Continuous", new GffField { ByteValue = Convert.ToByte(IsContinuous) });
-            gff.Add("Elevation", new GffField { FloatValue = Elevation });
-            gff.Add("Hours", new GffField { DWordValue = Hours });
-            gff.Add("Interval", new GffField { DWordValue = Interval });
-            gff.Add("IntervalVrtn", new GffField { DWordValue = IntervalVariation });
+            gff.Add("Active", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(IsActive) });
+            gff.Add("Continuous", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(IsContinuous) });
+            gff.Add("Elevation", new GffField(GffFieldType.Float) { FloatValue = Elevation });
+            gff.Add("Hours", new GffField(GffFieldType.DWord) { DWordValue = Hours });
+            gff.Add("Interval", new GffField(GffFieldType.DWord) { DWordValue = Interval });
+            gff.Add("IntervalVrtn", new GffField(GffFieldType.DWord) { DWordValue = IntervalVariation });
             
-            GffField tempField = new GffField();
+            GffField tempField = new GffField(GffFieldType.CExoLocString);
             tempField.LocalizedStrings.Add(LocalizedName);
             gff.Add("LocName", tempField);
 
-            gff.Add("Looping", new GffField { ByteValue = Convert.ToByte(IsLooping) });
-            gff.Add("MaxDistance", new GffField { FloatValue = MaxDistance });
-            gff.Add("MinDistance", new GffField { FloatValue = MinDistance });
-            gff.Add("PitchVariation", new GffField { FloatValue = PitchVariation });
-            gff.Add("Positional", new GffField { ByteValue = Convert.ToByte(IsPositional) });
-            gff.Add("Priority", new GffField { ByteValue = Priority });
-            gff.Add("Random", new GffField { ByteValue = Convert.ToByte(IsPlaylistRandom) });
-            gff.Add("RandomPosition", new GffField { ByteValue = Convert.ToByte(HasRandomPosition) });
-            gff.Add("RandomRangeX", new GffField { FloatValue = RandomRangeX });
-            gff.Add("RandomRangeY", new GffField { FloatValue = RandomRangeY });
-            gff.Add("Tag", new GffField { StringValue = Tag });
-            gff.Add("TemplateResRef", new GffField { ResrefValue = TemplateResRef });
-            gff.Add("Times", new GffField { ByteValue = (byte)TimeOfDay });
-            gff.Add("Volume", new GffField { ByteValue = Volume });
-            gff.Add("VolumeVrtn", new GffField { ByteValue = VolumeVariation });
-            gff.Add("Comment", new GffField { StringValue = Comment });
-            gff.Add("PaletteID", new GffField { ByteValue = PaletteID });
-            gff.Add("GeneratedType", new GffField { ByteValue = Convert.ToByte(IsGenerated) });
-            gff.Add("XPosition", new GffField { FloatValue = XPosition });
-            gff.Add("YPosition", new GffField { FloatValue = YPosition });
-            gff.Add("ZPosition", new GffField { FloatValue = ZPosition });
+            gff.Add("Looping", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(IsLooping) });
+            gff.Add("MaxDistance", new GffField(GffFieldType.Float) { FloatValue = MaxDistance });
+            gff.Add("MinDistance", new GffField(GffFieldType.Float) { FloatValue = MinDistance });
+            gff.Add("PitchVariation", new GffField(GffFieldType.Float) { FloatValue = PitchVariation });
+            gff.Add("Positional", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(IsPositional) });
+            gff.Add("Priority", new GffField(GffFieldType.Byte) { ByteValue = Priority });
+            gff.Add("Random", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(IsPlaylistRandom) });
+            gff.Add("RandomPosition", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(HasRandomPosition) });
+            gff.Add("RandomRangeX", new GffField(GffFieldType.Float) { FloatValue = RandomRangeX });
+            gff.Add("RandomRangeY", new GffField(GffFieldType.Float) { FloatValue = RandomRangeY });
+            gff.Add("Tag", new GffField(GffFieldType.CExoString) { StringValue = Tag });
+            gff.Add("TemplateResRef", new GffField(GffFieldType.ResRef) { ResrefValue = TemplateResRef });
+            gff.Add("Times", new GffField(GffFieldType.Byte) { ByteValue = (byte)TimeOfDay });
+            gff.Add("Volume", new GffField(GffFieldType.Byte) { ByteValue = Volume });
+            gff.Add("VolumeVrtn", new GffField(GffFieldType.Byte) { ByteValue = VolumeVariation });
+            gff.Add("Comment", new GffField(GffFieldType.CExoString) { StringValue = Comment });
+            gff.Add("PaletteID", new GffField(GffFieldType.Byte) { ByteValue = PaletteID });
+            gff.Add("GeneratedType", new GffField(GffFieldType.Byte) { ByteValue = Convert.ToByte(IsGenerated) });
+            gff.Add("XPosition", new GffField(GffFieldType.Float) { FloatValue = XPosition });
+            gff.Add("YPosition", new GffField(GffFieldType.Float) { FloatValue = YPosition });
+            gff.Add("ZPosition", new GffField(GffFieldType.Float) { FloatValue = ZPosition });
 
             return gff;
         }
